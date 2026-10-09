@@ -9,6 +9,8 @@ fajlova sa računara, kao i preuzimanje liste preko URL adrese.
 - broj programa i trajanje EPG-a po kanalu
 - pretraga i sortiranje kanala
 - dashboard sa rasporedom odabranog kanala
+- otvaranje rasporeda klikom na naziv kanala ili dugme „Preglednik“
+- status pokrivenosti: „Dobar pokrivač“ za 3 ili više dana i „Kratak EPG“ za manje
 - prikaz početka, završetka, naziva i opisa emisije
 - učitavanje URL-a preko lokalnog proxy servera radi izbjegavanja CORS blokade
 
