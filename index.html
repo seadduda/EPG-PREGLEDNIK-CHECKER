@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="bs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EPG Checker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">EPG</div>
+        <div>
+          <h1>EPG Checker</h1>
+          <p>Preglednik kanala i pokrivenosti programa</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button id="demoButton" class="button button-secondary">Učitaj primjer</button>
+        <button id="clearButton" class="button button-ghost">Očisti</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow">M3U Control ROM stil</span>
+        <h2>Provjeri EPG za nekoliko sekundi</h2>
+        <p>Učitaj XML/XML.GZ fajl ili zalijepi URL do EPG liste i odmah vidi koji kanali postoje i koliko dana programa imaju.</p>
+      </div>
+      <div class="hero-orb"></div>
+    </section>
+
+    <section class="loader card">
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="file">Fajl sa računara</button>
+        <button class="tab" data-tab="url">URL adresa</button>
+      </div>
+      <div id="filePanel" class="tab-panel active">
+        <label class="dropzone" id="dropzone" for="fileInput">
+          <input id="fileInput" type="file" accept=".xml,.gz,.xml.gz,text/xml,application/gzip">
+          <span class="upload-icon">↑</span>
+          <strong>Prevuci EPG fajl ovdje ili klikni za izbor</strong>
+          <span>Podržano: .xml i .xml.gz</span>
+        </label>
+        <div id="selectedFile" class="selected-file hidden"></div>
+      </div>
+      <div id="urlPanel" class="tab-panel">
+        <div class="url-row">
+          <input id="urlInput" type="url" placeholder="https://primjer.com/epg.xml.gz" autocomplete="off">
+          <button id="loadUrlButton" class="button button-primary">Učitaj URL</button>
+        </div>
+        <p class="hint">URL server mora dozvoliti CORS zahtjeve. Ako ne dozvoljava, preuzmi fajl pa ga učitaj kroz karticu „Fajl sa računara“.</p>
+      </div>
+      <div id="progress" class="progress hidden"><span></span></div>
+      <div id="status" class="status" aria-live="polite">Spreman za učitavanje EPG liste.</div>
+    </section>
+
+    <section id="results" class="hidden">
+      <div class="stats-grid">
+        <div class="stat card"><span>Kanala</span><strong id="channelCount">0</strong><small>pronađenih u listi</small></div>
+        <div class="stat card"><span>Ukupno programa</span><strong id="programmeCount">0</strong><small>EPG zapisa</small></div>
+        <div class="stat card"><span>Prosjek pokrivenosti</span><strong id="averageDays">0 dana</strong><small>po kanalu</small></div>
+        <div class="stat card"><span>Najduži EPG</span><strong id="longestDays">0 dana</strong><small id="longestChannel">—</small></div>
+      </div>
+      <div class="toolbar card">
+        <div class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="Pretraži kanal..."></div>
+        <select id="sortSelect" aria-label="Sortiranje">
+          <option value="name">Naziv A–Ž</option>
+          <option value="days-desc">Najviše dana</option>
+          <option value="days-asc">Najmanje dana</option>
+          <option value="programmes-desc">Najviše programa</option>
+        </select>
+      </div>
+      <div class="table-card card">
+        <div class="table-heading"><div><h3>Kanali u EPG listi</h3><span id="visibleCount">0 rezultata · klikni kanal za raspored</span></div><span class="legend"><i class="dot dot-good"></i> 3+ dana <i class="dot dot-warn"></i> manje od 3 dana</span></div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Kanal</th><th>Prvi program</th><th>Posljednji program</th><th>Trajanje</th><th>Programi</th><th>Status</th></tr></thead>
+            <tbody id="channelTable"></tbody>
+          </table>
+        </div>
+        <div id="emptyState" class="empty hidden">Nema kanala koji odgovaraju pretrazi.</div>
+      </div>
+    </section>
+
+    <footer><span>EPG Checker</span><span>Radi lokalno u vašem pregledniku · Podaci ne napuštaju računar</span></footer>
+  </main>
+  <div id="dashboardBackdrop" class="dashboard-backdrop hidden"></div>
+  <aside id="channelDashboard" class="dashboard" aria-hidden="true">
+    <div class="dashboard-header">
+      <div>
+        <span class="eyebrow">Raspored kanala</span>
+        <h2 id="dashboardChannel">—</h2>
+        <p id="dashboardMeta">—</p>
+      </div>
+      <button id="closeDashboard" class="dashboard-close" aria-label="Zatvori dashboard">×</button>
+    </div>
+    <div class="dashboard-summary">
+      <div><span>Od</span><strong id="dashboardFrom">—</strong></div>
+      <div><span>Do</span><strong id="dashboardTo">—</strong></div>
+      <div><span>Emisija</span><strong id="dashboardCount">0</strong></div>
+    </div>
+    <div id="programmeList" class="programme-list"></div>
+  </aside>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tv>
+  <channel id="demo.one"><display-name>Demo Sport</display-name></channel>
+  <channel id="demo.two"><display-name>Demo Cinema</display-name></channel>
+  <channel id="demo.three"><display-name>Demo News</display-name></channel>
+  <programme channel="demo.one" start="20261007060000 +0000" stop="20261010060000 +0000"><title>Sportski program</title></programme>
+  <programme channel="demo.two" start="20261008080000 +0000" stop="20261009080000 +0000"><title>Filmski program</title></programme>
+  <programme channel="demo.three" start="20261009090000 +0000" stop="20261009120000 +0000"><title>Vijesti</title></programme>
+</tv>
